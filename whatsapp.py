@@ -4,7 +4,6 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.keys import Keys
-from datetime import datetime
 
 # Setup Chrome options (Headless mode jika ingin browser tidak muncul)
 options = webdriver.ChromeOptions()
@@ -23,10 +22,29 @@ input('Press ENTER after scanning QR code...')
 
 # Ambil data dari user
 name = input('Enter the name of user or group: ')
-msg = input('Enter your message: ')
-count = int(input('Enter how many times to send the message: '))
-gap = float(input('Interval (in seconds) between messages: '))
+
+# Konfigurasi pesan teks - TANPA BATAS
+messages = []
+print("\n📝 Konfigurasi Pesan Teks")
+print("Anda bisa menambahkan pesan sebanyak yang diinginkan!")
+print("Ketik 'SELESAI' di baris baru ketika sudah cukup")
+
+msg_count = 0
+while True:
+    msg_count += 1
+    msg = input(f"Masukkan pesan teks #{msg_count} (atau 'SELESAI' untuk berhenti): ")
+    if msg.upper() == 'SELESAI':
+        if msg_count == 1:
+            print("Anda harus memasukkan minimal 1 pesan!")
+            msg_count = 0
+            continue
+        break
+    messages.append(msg)
+
 bot_prompt = input('Do you want to add bot prompt to your message? (Y/N) ').strip().upper()
+
+count = int(input('Enter how many times to send the message sequence: '))
+gap = float(input('Interval (in seconds) between messages: '))
 
 # Cari dan klik chat
 try:
@@ -50,17 +68,18 @@ except Exception as e:
 
 # Kirim pesan berulang kali
 for i in range(count):
-    msg_final = f"<Status: {i+1}/{count}> {msg}" if bot_prompt == 'Y' else msg
-    msg_box.send_keys(msg_final)
-    time.sleep(0.5)
+    for idx, msg in enumerate(messages):
+        msg_final = f"<Status: {i+1}/{count}, Message {idx+1}/{len(messages)}> {msg}" if bot_prompt == 'Y' else msg
+        msg_box.send_keys(msg_final)
+        time.sleep(0.5)
 
-    try:
-        send_button = driver.find_element(By.XPATH, '//button[@aria-label="Kirim" or @aria-label="Send"]')
-        send_button.click()
-    except Exception as e:
-        print(f"[!] Failed to click send button. Error: {e}")
+        try:
+            send_button = driver.find_element(By.XPATH, '//button[@aria-label="Kirim" or @aria-label="Send"]')
+            send_button.click()
+        except Exception as e:
+            print(f"[!] Failed to click send button. Error: {e}")
 
-    time.sleep(gap)
+        time.sleep(gap)
 
 # Pesan penutup
 msg_box.send_keys('Pesan selesai dikirim.')

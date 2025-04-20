@@ -1,55 +1,58 @@
 # WhatsApp-Spam-Bot
 
-Python code for a WhatsApp spam bot: https://github.com/Akshayjyoti/WhatsApp-Spam-Bot/blob/main/whatsapp.py  
-Version 2.0  
-Testing date: September 4, 2021
-
-### ✅ Updated by: Fatony Ahmad Fauzi
-
-### 🔄 Updated version: 2.01
-
-### 🧪 Latest testing: April 14, 2025
+Python code for a WhatsApp spam bot. This bot uses Selenium to automate message sending via WhatsApp Web.
 
 ---
 
-## 🛠️ Changes & Improvements by Fatony Ahmad Fauzi:
+## Version 2.1
 
-- Migrated to latest **Selenium 4+** standards:
-  - Replaced deprecated `find_element_by_*` with `find_element(By.*, ...)`.
-- Updated XPath for:
-  - **Message box** to accurately avoid search bar and target the correct chat input field.
-  - **Send button** to match modern WhatsApp Web structure (`aria-label="Kirim"` or `"Send"`).
-- Added handling for:
-  - **Language variation** (`Kirim` for Indonesian, `Send` for English).
-- Improved error handling for element detection (chat not found, message box not found, etc).
-- Added flexible input box detection to adapt with future DOM changes (`_ak1r` container).
-- Compatible with latest **ChromeDriver v135+** and WhatsApp Web UI updates.
-- Optional **bot prompt** feature retained with option to disable.
-- Added compatibility for both English and Indonesian UI.
-- Removed unused import (`datetime`) if not in use.
+### ✅ Updated by: Fatony Ahmad Fauzi
+
+### 🧪 Latest testing: April 20, 2025
+
+---
+
+## 🛠️ Key Features:
+
+- **Unlimited Message Configuration:**
+
+  - Add as many unique messages as you want during runtime.
+  - Messages are sent in sequence repeatedly for the number of cycles specified by the user.
+
+- **Bot Prompt Customization:**
+
+  - Option to include a `<Status>` prefix in each message for tracking.
+
+- **Selenium 4+ Compatibility:**
+
+  - Updated to use the latest Selenium standards.
+
+- **Multi-Language Support:**
+  - Handles "Kirim" (Indonesian) and "Send" (English) button variations on WhatsApp Web.
 
 ---
 
 ## 🧪 Working Procedure:
 
-1. Enter the name of user or group.
-2. Enter your message.
-3. Enter the number of times the message is to be sent.
-4. Enter the interval (in seconds) between messages.
-5. Optional bot prompt.
-6. After pressing 'Enter', the bot will open the specific chat and start sending messages.
+1. Scan the QR code on WhatsApp Web using the Chrome browser.
+2. Enter the name of the user or group chat exactly as it appears in WhatsApp.
+3. Configure your messages:
+   - Add as many messages as desired.
+   - Type 'SELESAI' when you are done.
+4. Choose whether to include bot prompts in the messages.
+5. Specify the number of cycles and the interval between messages.
+6. The bot will automate sending messages to the selected chat.
 
 ---
 
 ## ⚠️ Notes:
 
-- Maximize the Chrome window as soon as it opens.
-- Ignore warnings while entering name of user or group.
-- Name of user or group must be entered **correctly (case sensitive)**.
-- If elements cannot be found, use **Developer Tools (F12)** to inspect updated structure.
+- Ensure your Chrome window is maximized after opening WhatsApp Web.
+- User or group names must match exactly (case-sensitive).
+- Use **Developer Tools (F12)** to inspect DOM changes if any errors occur.
 
 ---
 
 ## ⚠️ Disclaimer:
 
-This tool is for **educational** and **personal testing purposes only**. Do not use it for spamming or violating WhatsApp policies. Your account can be banned for abuse.
+This tool is for **educational and personal testing purposes only**. Misuse, such as spamming, may result in **WhatsApp account suspension**. Use responsibly and adhere to WhatsApp's Terms of Service.
